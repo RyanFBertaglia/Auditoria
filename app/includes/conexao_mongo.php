@@ -1,26 +1,28 @@
 <?php
-require_once 'env.php';
-require 'vendor/autoload.php';
+require_once '../../../env.php';
+require '../../vendor/autoload.php';
 
-loadEnv(__DIR__ . '/../.env');
-
-use MongoDB\Client;
-
-function getPostsCollection() {
-    $client = new Client($_ENV['MONGO_URI']);
+function getMongoClient() {
+    static $client = null;
     
-    // Selecionar o banco de dados
-    $db = $client->selectDatabase($_ENV['MONGO_DB']);
-    // Retornar a coleção 'posts'
-    return $db->selectCollection('reports');
+    if ($client === null) {
+        $client = new MongoDB\Client(
+            $_ENV['MONGO_URI'],
+            [
+                'retryWrites' => true,
+                'w' => 'majority',
+                'appName' => 'Auditoria'
+            ]
+        );
+    }
+    
+    return $client;
 }
 
 function getUsuariosCollection() {
-    $client = new Client($_ENV['MONGO_URI']);
-    
-    // Selecionar o banco de dados
-    $db = $client->selectDatabase($_ENV['MONGO_DB']);
-    
-    // Retornar a coleção 'usuarios'
-    return $db->selectCollection('users');
+    return getMongoClient()->selectDatabase($_ENV['MONGO_DB'])->selectCollection('users');
+}
+
+function getPostsCollection() {
+    return getMongoClient()->selectDatabase($_ENV['MONGO_DB'])->selectCollection('reports');
 }

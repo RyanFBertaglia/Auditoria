@@ -23,4 +23,5 @@ $usuarios->insertOne([
     'senha' => $hash
 ]);
 
+$_SESSION['email'] = $email;
 echo "Cadastro realizado com sucesso! <a href='login.html'>Ir para login</a>";

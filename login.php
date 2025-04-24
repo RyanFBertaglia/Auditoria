@@ -12,6 +12,11 @@
         <form id="userForm" class="blurred-form">
 
             <h2>Login</h2>
+            
+            <?php if (isset($_GET['erro'])): ?>
+                <div class="erro"><?= htmlspecialchars($_GET['erro']) ?></div>
+            <?php endif; ?>
+
             <label for="email">Email:</label>
             <input type="text" id="email" name="email">
             
