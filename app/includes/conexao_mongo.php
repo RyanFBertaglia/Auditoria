@@ -12,7 +12,7 @@ function getPostsCollection() {
     // Selecionar o banco de dados
     $db = $client->selectDatabase($_ENV['MONGO_DB']);
     // Retornar a coleção 'posts'
-    return $db->selectCollection('posts');
+    return $db->selectCollection('reports');
 }
 
 function getUsuariosCollection() {
@@ -22,5 +22,5 @@ function getUsuariosCollection() {
     $db = $client->selectDatabase($_ENV['MONGO_DB']);
     
     // Retornar a coleção 'usuarios'
-    return $db->selectCollection('usuarios');
+    return $db->selectCollection('users');
 }
