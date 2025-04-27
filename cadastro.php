@@ -6,11 +6,11 @@
     <link rel="stylesheet" type="text/css" href="./static/css/cadastro.css">
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa&family=Poppins&family=Quicksand&display=swap" rel="stylesheet">
 
-    <title>Login</title>
+    <title>Cadastro</title>
 </head>
 <body>
     <div class="background">
-        <form id="userForm" class="blurred-form">
+        <form id="userForm" class="blurred-form" action="app/auth/Cadastro.php" method="POST">
             <h2>Cadastro</h2>
             <label for="name">Username:</label>
             <input type="text" id="name" name="name">

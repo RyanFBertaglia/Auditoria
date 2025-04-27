@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="background">
-        <form id="userForm" class="blurred-form">
+        <form id="userForm" class="blurred-form" action="app/auth/Login.php" method="POST">
 
             <h2>Login</h2>
             
