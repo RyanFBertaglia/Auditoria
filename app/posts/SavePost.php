@@ -1,9 +1,8 @@
 <?php
-session_start();
-require_once 'includes/env.php';
-loadEnv(__DIR__ . '/.env');
 
-require 'vendor/autoload.php';
+session_start();
+require '../includes/conexao_mongo.php';
+require '../../vendor/autoload.php';
 
 $email = $_SESSION['email'] ?? null;
 
@@ -11,27 +10,52 @@ if (!$email) {
     die("Usuário não autenticado.");
 }
 
+$nome = $_POST['name'];
 $descricao = $_POST['descricao'] ?? '';
 $data = date('Y-m-d H:i:s');
 
 // Processar imagem
-$imagemBase64 = null;
-if (isset($_FILES['imagem']) && $_FILES['imagem']['error'] === UPLOAD_ERR_OK) {
-    $imagemTmp = $_FILES['imagem']['tmp_name'];
-    $imagemConteudo = file_get_contents($imagemTmp);
-    $imagemBase64 = base64_encode($imagemConteudo);
+$imagensProcessadas = [];
+
+if (!empty($_FILES['imagem']['tmp_name'][0])) {
+    foreach ($_FILES['imagem']['tmp_name'] as $key => $tmp_name) {
+        if ($_FILES['imagem']['error'][$key] !== UPLOAD_ERR_OK) {
+            continue;
+        }
+
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime = finfo_file($finfo, $tmp_name);
+        finfo_close($finfo);
+
+        $tiposPermitidos = ['image/jpeg', 'image/png', 'image/gif'];
+        if (!in_array($mime, $tiposPermitidos)) {
+            continue;
+        }
+        if ($_FILES['imagem']['size'][$key] > 5 * 1024 * 1024) {
+            continue;
+        }
+
+        // Converter para base64
+        $imagemData = file_get_contents($tmp_name);
+        $base64 = base64_encode($imagemData);
+
+        $imagensProcessadas[] = [
+            'nome' => $_FILES['imagem']['name'][$key],
+            'tipo' => $mime,
+            'dados' => $base64,
+            'tamanho' => $_FILES['imagem']['size'][$key]
+        ];
+    }
 }
 
 // Conexão com MongoDB
 try {
-    $client = new MongoDB\Client($_ENV['MONGO_API_KEY']);
-    $mongoDB = $client->selectDatabase($_ENV['MONGO_DB']);
-    $colecao = $mongoDB->selectCollection($_ENV['MONGO_COLLECTION']);
-
-    $colecao->insertOne([
+    $colecao = getPostsCollection();
+    $resultado = $colecao->insertOne([
         'email' => $email,
+        'nome' => $nome,
         'descricao' => $descricao,
-        'imagem' => $imagemBase64,
+        'imagens' => $imagensProcessadas,
         'data' => $data
     ]);
 

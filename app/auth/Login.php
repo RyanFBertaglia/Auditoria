@@ -87,6 +87,7 @@ try {
     $_SESSION['usuario_id'] = (string)$usuario['_id'];
     $_SESSION['email'] = $email;
     $_SESSION['logado'] = true;
+    $_SESSION['session_start_time'] = time();
 
     // Redireciona para área protegida
     header('Location: ../../index.html');

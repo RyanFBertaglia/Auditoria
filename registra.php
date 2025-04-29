@@ -1,9 +1,7 @@
 <?php
-session_start();
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php");
-    exit;
-}
+    session_start();
+    require_once 'app/auth/auth.php';
+    confere_timeout();
 ?>
 
 <!DOCTYPE html>
@@ -32,8 +30,8 @@ if (!isset($_SESSION['usuario_id'])) {
             </div>
 
             <div class="form-group">
-                <label for="comment">Descreva o problema:</label>
-                <textarea id="comment" name="comment" rows="5" required></textarea>
+                <label for="descricao">Descreva o problema:</label>
+                <textarea id="descricao" name="descricao" rows="5" required></textarea>
                 <div class="limit-info">
                     <small>Limite: 1000 caracteres</small>
                     <small id="char-counter">0/1000</small>
@@ -44,12 +42,17 @@ if (!isset($_SESSION['usuario_id'])) {
                 <label>Anexar Imagens (opcional):</label>
                 <div class="button-container">
                     <div class="upload-button-wrapper">
-                        <input type="file" id="file" name="file" accept="image/*" multiple style="display:none;">
+                    <input type="file"
+                               id="imagem"
+                               name="imagem[]"
+                               accept="image/png, image/jpeg, image/gif"
+                               multiple
+                               style="display:none;">
                         <label for="file" class="file-upload-label">Adicionar Imagens</label>
                     </div>
                     <button type="submit" class="submit-button" id="submitButton">Enviar</button>
                 </div>
-                <small id="file-limit">Máximo 4 imagens, 5 MB cada (PNG, JPG, JPEG, GIF)</small>
+                <small id="file-limit">Máximo 4 imagens, 5 MB cada (PNG, JPEG, GIF)</small>
                 <div id="file-list" class="file-list"></div>
             </div>
         </form>
@@ -62,6 +65,7 @@ if (!isset($_SESSION['usuario_id'])) {
             <p>Mensagem enviada com sucesso!</p>
         </div>
     </div>
-
+    <script src="./app/validacao.js"></script>
+    <script src="./static/js/fotos.js"></script>
 </body>
 </html>
