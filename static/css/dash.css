@@ -1,0 +1,115 @@
+* {
+    box-sizing: border-box;
+}
+
+.post { 
+    border: 1px solid #ddd; 
+    margin: 15px 0; 
+    padding: 15px; 
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.post-header { 
+    font-weight: bold; 
+    margin-bottom: 10px;
+    color: #005A8D;
+}
+.post-content {
+    margin: 10px 0;
+    line-height: 1.6;
+}
+
+/* Estilos da galeria */
+.gallery-container {
+    position: relative;
+    margin: 20px 0;
+}
+
+.mySlides {
+    display: none;
+    text-align: center;
+}
+
+.mySlides img {
+    max-height: 500px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+    background-color: rgba(0, 90, 141, 0.7);
+}
+
+.next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+    background-color: #005A8D;
+}
+
+.numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+    background-color: rgba(0, 90, 141, 0.7);
+    border-radius: 0 0 3px 0;
+}
+
+.row {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 10px 0;
+    gap: 5px;
+}
+
+.column {
+    flex: 0 0 16.66%;
+    max-width: 16.66%;
+}
+
+.demo {
+    opacity: 0.6;
+    height: 50px;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 3px;
+}
+
+.active, .demo:hover {
+    opacity: 1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: #005A8D;
+    border-bottom: 2px solid #A3D5E6;
+    padding-bottom: 10px;
+}

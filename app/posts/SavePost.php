@@ -12,6 +12,9 @@ if (!$email) {
 
 $nome = $_POST['name'];
 $descricao = $_POST['descricao'] ?? '';
+
+if($descricao.strlen() > 1000):
+    exit;
 $data = date('Y-m-d H:i:s');
 
 // Processar imagem
@@ -62,5 +65,7 @@ try {
     echo "Post salvo com sucesso!";
 } catch (Exception $e) {
     die("Erro ao salvar post: " . $e->getMessage());
+
+    //Necessário criar exceptions para cada erro
 }
 ?>

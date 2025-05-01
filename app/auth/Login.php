@@ -2,12 +2,6 @@
 require_once '../includes/conexao_mongo.php';
 session_start();
 
-// Verifica se é uma submissão POST
-//if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
- //   header('Location: login.html');
-//exit();
-//}
-
 $email = filter_var($_POST['email'] ?? '', FILTER_SANITIZE_EMAIL);
 $senha = $_POST['senha'] ?? '';
 
@@ -83,14 +77,12 @@ try {
         exit();
     }
 
-    // Armazena dados na sessão
     $_SESSION['usuario_id'] = (string)$usuario['_id'];
     $_SESSION['email'] = $email;
     $_SESSION['logado'] = true;
     $_SESSION['session_start_time'] = time();
 
-    // Redireciona para área protegida
-    header('Location: ../../index.html');
+    header('Location: ../../index.php');
     exit();
 
 } catch (Exception $e) {

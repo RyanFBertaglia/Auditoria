@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once 'app/auth/auth.php';
     confere_timeout();
 ?>
@@ -37,6 +36,8 @@
                     <small id="char-counter">0/1000</small>
                 </div>
             </div>
+
+            <script src="./static/js/efeitoContador.js"></script>
 
             <div class="form-group upload-group">
                 <label>Anexar Imagens (opcional):</label>
