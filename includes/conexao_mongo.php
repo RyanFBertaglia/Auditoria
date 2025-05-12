@@ -1,8 +1,8 @@
 <?php
 require_once 'env.php';
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . './../vendor/autoload.php';
 
-loadEnv(__DIR__ . '/../../.env');
+loadEnv(__DIR__ . './../.env');
 
 function getMongoClient() {
     static $client = null;

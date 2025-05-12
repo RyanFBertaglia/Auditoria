@@ -70,3 +70,17 @@ body, a{
     text-align: center;   
     width: 90%;
 }
+
+.error-form {
+    background: rgba(255, 0, 0, 0.15); 
+    border: 2px solid rgba(255, 0, 0, 0.3);
+}
+
+.mensagem-erro {
+    color: #fff;
+    background: rgba(255, 0, 0, 0.2);
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    text-align: center;
+}
