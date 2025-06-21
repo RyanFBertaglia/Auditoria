@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8" />
     <title>Login</title>
+    <link rel="stylesheet" href="./view/static/style/auth.css">
 </head>
 <body>
     <?php if (!empty($erro)): ?>
@@ -40,10 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form action="/register" method="POST">
+        <h1>Cadastre-se</h1>
         <input type="email" name="email" required placeholder="E-mail" />
         <input type="text" name="nome" required placeholder="Nome" />
         <input type="password" name="senha" required placeholder="Senha" />
         <button type="submit">Cadastrar</button>
+        <a href="/register">Já possui uma conta? Login</a>
+
     </form>
 </body>
 </html>

@@ -28,6 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8" />
     <title>Login</title>
+    <link rel="stylesheet" href="./view/static/style/auth.css">
 </head>
 <body>
     <?php if (!empty($erro)): ?>
@@ -35,9 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
 
     <form action="/login" method="POST">
+        <h1>Login</h1>
         <input type="email" name="email" required placeholder="E-mail" />
         <input type="password" name="senha" required placeholder="Senha" />
         <button type="submit">Entrar</button>
+        <a href="/register">Não tem conta ainda? Cadastre-se</a>
     </form>
 </body>
 </html>
