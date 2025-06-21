@@ -1,3 +1,5 @@
+USE dados;
+
 CREATE TABLE comentarios (
     idComentario INT AUTO_INCREMENT PRIMARY KEY,
     idPost INT NOT NULL,

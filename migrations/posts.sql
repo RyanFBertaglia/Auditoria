@@ -1,4 +1,3 @@
-use dados;
 USE dados;
 
 CREATE TABLE postagens (
