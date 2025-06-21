@@ -50,8 +50,19 @@ CREATE DATABASE dados;
 ```
 5. Importe e rode os arquivos SQL da pasta migrations para criar cada tabela
 
-## 🏗️ Arquitetura MVC
+## Design:
+### Página inical:
+![alt text](./view/static/img/home.png)
+### Ver Posts:
+![alt text](./view/static/img/posts.png)
+### Criar Posts:
+![alt text](./view/static/img/create.png)
+### Comentarios:
+![alt text](./view/static/img/comentarios.png)
+### Comentar:
+![alt text](./view/static/img/comentar.png)
 
+## 🏗️ Arquitetura MVC
 
 |Model	  | Responsável pela conexão com o banco de dados e manipulação dos dados (CRUD)	 |
 |-------------------|---------|
