@@ -6,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $pdo = require __DIR__ . '/../../includes/db.php';
 require_once __DIR__ . '/../../model/Posts.php';
 require_once __DIR__ . '/../../controller/PostController.php';
-require_once __DIR__ . '/../../model/Comentario.php'; // Incluir modelo de comentários
+require_once __DIR__ . '/../../model/Comentario.php';
 
 use backend\Models\Posts;
 use backend\Controller\PostController;
@@ -14,7 +14,7 @@ use backend\Models\Comentario;
 
 $postsModel = new Posts($pdo);
 $controller = new PostController($postsModel);
-$comentarioModel = new Comentario($pdo); // Instanciar modelo de comentários
+$comentarioModel = new Comentario($pdo);
 
 try {
     $posts = $controller->getAll();
@@ -151,7 +151,6 @@ try {
 <script src="/view/static/js/galeria.js"></script>
 
 <script>
-// Função adicional para confirmação de ações
 function confirmarAcao(acao, postId) {
     if (confirm('Deseja ' + acao + ' neste post?')) {
         if (acao === 'ver comentários') {
@@ -162,36 +161,7 @@ function confirmarAcao(acao, postId) {
     }
 }
 
-// Adicionar eventos de teclado para navegação
-document.addEventListener('keydown', function(e) {
-    // Tecla C para comentários do primeiro post
-    if (e.key === 'c' || e.key === 'C') {
-        const firstPost = document.querySelector('.post');
-        if (firstPost) {
-            const postId = firstPost.querySelector('button[onclick*="comentarios"]')
-                          ?.getAttribute('onclick')
-                          ?.match(/post_id=(\d+)/)?.[1];
-            if (postId) {
-                window.location.href = '/comentarios?post_id=' + postId;
-            }
-        }
-    }
-    
-    // Tecla R para responder ao primeiro post
-    if (e.key === 'r' || e.key === 'R') {
-        const firstPost = document.querySelector('.post');
-        if (firstPost) {
-            const postId = firstPost.querySelector('button[onclick*="comentar"]')
-                          ?.getAttribute('onclick')
-                          ?.match(/post_id=(\d+)/)?.[1];
-            if (postId) {
-                window.location.href = '/comentar?post_id=' + postId;
-            }
-        }
-    }
-});
-
-// Preload de páginas para melhor performance
+// Preload páginas
 document.addEventListener('DOMContentLoaded', function() {
     const buttons = document.querySelectorAll('button[onclick*="comentarios"], button[onclick*="comentar"]');
     buttons.forEach(button => {

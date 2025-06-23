@@ -65,9 +65,7 @@ $totalComentarios = $comentarioModel->contarComentarios($idPost);
         function atualizarComentarios() {
             location.reload();
         }
-        
         setInterval(atualizarComentarios, 30000);
-        
         window.addEventListener('beforeunload', function(e) {
         });
     </script>

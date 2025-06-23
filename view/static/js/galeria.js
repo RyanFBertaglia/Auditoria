@@ -37,10 +37,8 @@ function showSlides(galleryId, n) {
     }
 }
 
-// Inicializar índices de slides para cada galeria
 let slideIndex = {};
 
-// Inicializar todas as galerias na página
 document.addEventListener('DOMContentLoaded', function() {
     const galleries = document.querySelectorAll('.gallery-container');
     galleries.forEach(function(gallery) {
@@ -50,7 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Navegação por teclado
 document.addEventListener('keydown', function(e) {
     const activeGallery = document.querySelector('.gallery-container:hover');
     if (activeGallery) {
@@ -63,9 +60,7 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-// Prevenção de erro em galerias sem imagens
 document.addEventListener('DOMContentLoaded', function() {
-    // Verificar se há galerias vazias e remover controles
     const galleries = document.querySelectorAll('.gallery-container');
     galleries.forEach(function(gallery) {
         const slides = gallery.querySelectorAll('.mySlides');
@@ -76,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Melhorar performance em dispositivos móveis
+// Melhora sensibilidade do touch em mobile
 if ('ontouchstart' in window) {
     document.addEventListener('touchstart', function() {}, true);
 }

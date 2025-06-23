@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-  // Contador de caracteres
   const descricao = document.getElementById('descricao');
   const charCounter = document.getElementById('char-counter');
   const maxLength = 1000;
@@ -21,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
   }
   
-  // Sistema de upload de imagens
+  // Upload de imagens
   const fileInput = document.getElementById('imagens');
   const uploadArea = document.getElementById('uploadArea');
   const previewContainer = document.getElementById('previewContainer');

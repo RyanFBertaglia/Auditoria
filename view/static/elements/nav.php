@@ -68,7 +68,6 @@
             outline-offset: 2px;
         }
 
-        /* Responsividade */
         @media (max-width: 768px) {
             .botoes-fixos {
                 padding: 12px 16px;

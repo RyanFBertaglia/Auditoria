@@ -8,7 +8,6 @@ class Comentario {
         $this->pdo = $pdo;
     }
     
-    // Buscar todos os comentários de um post específico
     public function buscarComentariosPorPost($idPost) {
         $query = "SELECT c.*, p.titulo AS titulo_post
                   FROM comentarios c
@@ -23,7 +22,6 @@ class Comentario {
     }
     
     
-    // Criar um novo comentário
     public function criarComentario($idPost, $email, $comentario) {
         $query = "INSERT INTO comentarios (idPost, email, comentario) VALUES (?, ?, ?)";
         
@@ -31,7 +29,6 @@ class Comentario {
         return $stmt->execute([$idPost, $email, $comentario]);
     }
     
-    // Contar comentários de um post
     public function contarComentarios($idPost) {
         $query = "SELECT COUNT(*) as total FROM comentarios WHERE idPost = ?";
         
@@ -40,6 +37,10 @@ class Comentario {
         
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result['total'];
+    }
+
+    public function deletarComentario() {
+        
     }
     
 }

@@ -29,7 +29,6 @@
         </div>
     </section>
 
-    <!-- Features Section -->
     <section class="features">
         <div class="container">
             <h2>Como funciona</h2>
@@ -53,7 +52,6 @@
         </div>
     </section>
 
-    <!-- CTA Section -->
     <section class="cta">
         <div class="container">
             <div class="cta-content">
