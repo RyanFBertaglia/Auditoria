@@ -2,8 +2,12 @@
 namespace backend\Models;
 
 use \PDO;
+require_once __DIR__ . '/../model/Authenticator.php';
+use backend\Models\Authenticator;
 
-class Users {
+class Users implements Authenticator {
+
+    private $pdo;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
@@ -36,6 +40,13 @@ class Users {
             return $user;
         }
         return null;
+    }
+
+    function saveSession($email) {
+            $user = $this->findByEmail($email);
+            $_SESSION['logado'] = true;
+            $_SESSION['email'] = $user['email'];
+            header("Location: /home");
     }
 
 }

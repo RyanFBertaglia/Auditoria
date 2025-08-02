@@ -15,6 +15,19 @@ function protectPage() {
     }
 }
 
+function isAdmin() {
+    return isset($_SESSION['admin']) && ($_SESSION['admin'] == true);
+}
+
+function protectAdmin() {
+    if (!isAdmin()) {
+        $_SESSION['erro'] = "Você precisa estar logado para acessar esta página";
+        header('Location: /login');
+        exit;
+    }
+}
+
+
 function logout() {
     $_SESSION = array();
     
