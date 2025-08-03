@@ -22,6 +22,10 @@ switch ($uri) {
         require __DIR__ . '/view/auth/login.php';
         break;
 
+    case '/login-admin':
+        require __DIR__ . '/view/admin/login.php';
+        break;
+
     case '/register':
         if (isLoggedIn()) {
             redirect('home');
@@ -56,6 +60,20 @@ switch ($uri) {
         protectPage();
         require './view/posts/comentar.php';
         break;
+
+    case '/admin/posts':
+        protectAdmin();
+        require './view/admin/index.php';
+        break;
+    
+    case '/admin/responder':
+        protectAdmin();
+        require './view/admin/resposta.php';
+        break;
+    
+    case '/logout':
+        logout();
+        break;  
         
     // Página 404
     default:

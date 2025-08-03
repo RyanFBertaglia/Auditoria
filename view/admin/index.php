@@ -17,7 +17,7 @@ $controller = new PostController($postsModel);
 $comentarioModel = new Comentario($pdo);
 
 try {
-    $posts = $controller->getAll();
+    $posts = $controller->findAllNotResolved();
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -57,15 +57,16 @@ try {
 
                 <?php
                 $imagens = [];
+
                 if (!empty($post['imagens'])) {
                     $imagensDecoded = json_decode($post['imagens'], true);
+
                     if (is_array($imagensDecoded)) {
                         foreach ($imagensDecoded as $caminho) {
                             if (!empty(trim($caminho))) {
-                                $caminhoCompleto = __DIR__ . '/../../' . trim($caminho);
-                                if (file_exists($caminhoCompleto)) {
-                                    $imagens[] = trim($caminho);
-                                }
+                                $caminho = ltrim($caminho, './');
+                                $caminho = "../" . $caminho; 
+                                $imagens[] = trim($caminho);
                             }
                         }
                     }
@@ -74,13 +75,13 @@ try {
                 if (!empty($imagens)) {
                     $galleryId = 'gallery-' . ($post['id'] ?? uniqid());
                     $totalImagens = count($imagens);
-                    
-                    if ($totalImagens == 1) {
+
+                    if ($totalImagens === 1) {
                 ?>
                         <div class="single-image">
-                            <img src="./<?= htmlspecialchars($imagens[0]) ?>" 
-                                 alt="Imagem do post"
-                                 onerror="this.parentElement.innerHTML='<div class=\'error-image\'>Erro ao carregar imagem</div>'">
+                            <img src="<?= htmlspecialchars($imagens[0]) ?>" 
+                                alt="Imagem do post"
+                                onerror="this.parentElement.innerHTML='<div class=\'error-image\'>Erro ao carregar imagem</div>'">
                         </div>
                 <?php 
                     } else {
@@ -91,9 +92,9 @@ try {
                             ?>
                                 <div class="mySlides<?= $activeClass ?>">
                                     <div class="numbertext"><?= ($index + 1) ?> / <?= $totalImagens ?></div>
-                                    <img src="./<?= htmlspecialchars($caminho) ?>" 
-                                         alt="Imagem <?= ($index + 1) ?> do post"
-                                         onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZW0gbsOjbyBlbmNvbnRyYWRhPC90ZXh0Pjwvc3ZnPg=='">
+                                    <img src="<?= htmlspecialchars($caminho) ?>" 
+                                        alt="Imagem <?= ($index + 1) ?> do post"
+                                        onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTgiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZW0gbsOjbyBlbmNvbnRyYWRhPC90ZXh0Pjwvc3ZnPg=='">
                                 </div>
                             <?php endforeach; ?>
 
@@ -110,10 +111,10 @@ try {
                                 ?>
                                     <div class="column">
                                         <img class="demo cursor<?= $activeClass ?>" 
-                                             src="./<?= htmlspecialchars($caminho) ?>" 
-                                             onclick="currentSlide('<?= $galleryId ?>', <?= ($index + 1) ?>)"
-                                             alt="Miniatura <?= ($index + 1) ?>"
-                                             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RXJybzwvdGV4dD48L3N2Zz4='">
+                                            src="<?= htmlspecialchars($caminho) ?>" 
+                                            onclick="currentSlide('<?= $galleryId ?>', <?= ($index + 1) ?>)"
+                                            alt="Miniatura <?= ($index + 1) ?>"
+                                            onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0iI2RkZCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LXNpemU9IjEwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBkeT0iLjNlbSI+RXJybzwvdGV4dD48L3N2Zz4='">
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -126,6 +127,7 @@ try {
                 <?php 
                 }
                 ?>
+
 
                 <div class="buttons">
                     <button class="btn" onclick="window.location.href='/comentarios?post_id=<?= $post['idPost'] ?>'">

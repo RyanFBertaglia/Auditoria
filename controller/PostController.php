@@ -23,6 +23,10 @@ class PostController {
         return $this->posts->getAll();
     }
 
+    public function findAllNotResolved() {
+        return $this->posts->findAllNotResolved();
+    }
+
     public function save(array $data, array $arquivos) {
         try {
             if (empty($data['email'])) {

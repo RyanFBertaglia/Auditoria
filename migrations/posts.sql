@@ -7,6 +7,7 @@ CREATE TABLE postagens (
     descricao TEXT NOT NULL,
     imagens JSON DEFAULT NULL,
     data_postagem TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    resolvido BOOLEAN DEFAULT FALSE
 );
 
 

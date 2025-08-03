@@ -14,8 +14,9 @@ class Admin implements Authenticator {
     }
 
     public function findAdmin() {
+        $admin = "prefeitura@gmail.com";
         $stmt = $this->pdo->prepare("SELECT * FROM usuarios WHERE email = :email LIMIT 1");
-        $stmt->bindParam(':email', "prefeitura@gmail.com");
+        $stmt->bindParam(':email', $admin);
         $stmt->execute();
         return $stmt->fetch();
     }

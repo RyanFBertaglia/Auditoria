@@ -4,6 +4,8 @@ namespace backend\Models;
 use \PDO;
 
 class Posts {
+    
+    private $pdo;
 
     public function __construct(PDO $pdo) {
         $this->pdo = $pdo;
@@ -40,6 +42,11 @@ class Posts {
 
     public function getAll() {
         $stmt = $this->pdo->query("SELECT * FROM postagens ORDER BY data_postagem DESC");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function findAllNotResolved() {
+        $stmt = $this->pdo->query("SELECT * FROM postagens WHERE resolvido = FALSE ORDER BY data_postagem DESC");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     
