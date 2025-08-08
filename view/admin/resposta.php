@@ -1,18 +1,18 @@
 <?php
+use backend\Models\Admin;
+use backend\Controller\AdminController;
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$pdo = require __DIR__ . '/../../includes/db.php';
-require_once __DIR__ . '/../../model/Admin.php';
-require_once __DIR__ . '/../../controller/AdminController.php';
-
-use backend\Models\Admin;
-use backend\Controller\AdminController;
-
 $idPost = isset($_GET['post_id']) ? (int)$_GET['post_id'] : 1;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $pdo = require __DIR__ . '/../../includes/db.php';
+    require_once __DIR__ . '/../../model/Admin.php';
+    require_once __DIR__ . '/../../controller/AdminController.php';
+
     try {
 
         $titulo = $_POST['titulo'] ?? '';
@@ -24,10 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $resolucao = htmlspecialchars($resolucao, ENT_QUOTES, 'UTF-8');
 
-        $admin = new Admin($pdo);
-        $admin = new AdminController($admin);
+        $adminModel = new Admin($pdo);
+        $adminController = new AdminController($adminModel);
 
-        $admin->responder([
+        echo $_POST;
+
+        $adminController->responder([
             'id' => $idPost,
             'resolucao' => $resolucao
         ], $_FILES);
@@ -38,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 }
-
-
 ?>
 
 
@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
     
-    <form method="POST" enctype="multipart/form-data" id="mainForm">
+    <form method="POST" action="/admin/responder" enctype="multipart/form-data" id="mainForm">
 
         <label for="id" name="id">
             <h4>Post de número: <?php echo htmlspecialchars($idPost)?></h4>

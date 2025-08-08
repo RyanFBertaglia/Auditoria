@@ -50,41 +50,43 @@ class Admin implements Authenticator {
         return $statement->rowCount() > 0;
     }
 
-    function salvarFoto(array $arquivos) {
-        $uploadDir = './uploads/';
+public function salvarFoto(array $arquivos): array {
+    $uploadDir = './uploads/';
 
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0755, true);
-            }
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
 
-            $imagens = [];
+    $imagens = [];
 
-            if (!empty($arquivos['imagens']) && is_array($arquivos['imagens']['tmp_name'])) {
-                $total = count($arquivos['imagens']['tmp_name']);
-                $total = min($total, 5);
+    if (!empty($arquivos['imagens']) && is_array($arquivos['imagens']['tmp_name'])) {
+        $total = count($arquivos['imagens']['tmp_name']);
+        $total = min($total, 4);
 
-                for ($i = 0; $i < $total; $i++) {
-                    if ($arquivos['imagens']['error'][$i] === UPLOAD_ERR_OK) {
-                        $tmp = $arquivos['imagens']['tmp_name'][$i];
-                        $name = basename($arquivos['imagens']['name'][$i]);
-                        $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-                        $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        for ($i = 0; $i < $total; $i++) {
+            if ($arquivos['imagens']['error'][$i] === UPLOAD_ERR_OK) {
+                $tmp = $arquivos['imagens']['tmp_name'][$i];
+                $name = basename($arquivos['imagens']['name'][$i]);
+                $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-                        if (!in_array($ext, $permitidos)) {
-                            throw new Exception("Tipo de imagem não permitido: $ext");
-                        }
+                if (!in_array($ext, $permitidos)) {
+                    throw new Exception("Tipo de imagem não permitido: $ext");
+                }
 
-                        $novoNome = uniqid('img_') . "." . $ext;
-                        $destino = $uploadDir . $novoNome;
+                $novoNome = uniqid('img_') . "." . $ext;
+                $destino = $uploadDir . $novoNome;
 
-                        if (move_uploaded_file($tmp, $destino)) {
-                            $imagens[] = './uploads/' . $novoNome;
-                        } else {
-                            throw new Exception("Falha ao mover o arquivo $name.");
-                        }
-                    }
+                if (move_uploaded_file($tmp, $destino)) {
+                    $imagens[] = './uploads/' . $novoNome;
+                } else {
+                    throw new Exception("Falha ao mover o arquivo $name.");
                 }
             }
+        }
     }
+
+    return $imagens;
+}
 
 }
