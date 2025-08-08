@@ -17,6 +17,25 @@ body {
     padding: 0 20px;
 }
 
+.hero {
+    background: linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 100%);
+    color: white;
+    padding: 120px 20px 80px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero .administracao {
+    display: flex;
+    justify-content: right;
+    margin-top: 40px;
+    width: 100%;
+}
+
 .botoes-fixos {
     background-color: #4a6fa5;
     position: fixed;

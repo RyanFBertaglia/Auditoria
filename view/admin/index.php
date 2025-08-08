@@ -34,7 +34,7 @@ try {
 <div class="container">
 <br><br>
 
-    <h1>Posts Cadastrados</h1>
+    <h1>Reclamações Pendentes</h1>
 
     <?php if (empty($posts)): ?>
         <div class="no-image">Nenhum post encontrado.</div>
@@ -133,7 +133,7 @@ try {
                     <button class="btn" onclick="window.location.href='/comentarios?post_id=<?= $post['idPost'] ?>'">
                         Ver comentários<?php if($totalComentarios > 0): ?> (<?= $totalComentarios ?>)<?php endif; ?>
                     </button>
-                    <button class="btn" onclick="window.location.href='/comentar?post_id=<?= $post['idPost'] ?>'">
+                    <button class="btn" onclick="window.location.href='/admin/responder?post_id=<?= $post['idPost'] ?>'">
                         Responder
                     </button>
                 </div>

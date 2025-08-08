@@ -22,7 +22,7 @@ function isAdmin() {
 function protectAdmin() {
     if (!isAdmin()) {
         $_SESSION['erro'] = "Você precisa estar logado para acessar esta página";
-        header('Location: /login');
+        header('Location: /login-admin');
         exit;
     }
 }

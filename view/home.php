@@ -27,6 +27,10 @@
                 </div>
             </div>
         </div>
+        <div class="administracao">
+            <a href="/admin/posts" class="btn-secondary">Administracao</a>
+        </div>
+        
     </section>
 
     <section class="features">
