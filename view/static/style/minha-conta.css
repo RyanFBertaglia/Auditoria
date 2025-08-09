@@ -1,0 +1,140 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+.hero {
+    background: linear-gradient(135deg, #4a6fa5 0%, #5a7fb5 100%);
+    color: white;
+    padding: 120px 20px 80px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.03"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.03"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.02"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    pointer-events: none;
+}
+.hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+}
+.hero p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.card {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.user-info {
+    margin-top: 40px;
+}
+
+
+.user-info .info-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #eee;
+}
+.user-info .info-item:last-child {
+    border-bottom: none;
+}
+.user-info .label {
+    font-weight: bold;
+    color: #4a6fa5;
+}
+.user-info .value {
+    color: #333;
+}
+.posts table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+}
+.posts thead {
+    background-color: #4a6fa5;
+    color: white;
+}
+.posts th, .posts td {
+    padding: 15px;
+    text-align: left;
+}
+.posts th {
+    font-weight: 600;
+}
+.posts tbody tr {
+    transition: background-color 0.3s ease;
+}
+.posts tbody tr:hover {
+    background-color: #f5f5f5;
+}
+.posts tbody tr:nth-child(even) {
+    background-color: #fafafa;
+}
+.posts a {
+    color: #007bff;
+    text-decoration: none;
+}
+.posts a:hover {
+    text-decoration: underline;
+    color: #daa21b;
+}
+.status.resolved {
+        color: #28a745;
+}
+.status.pending {
+    color: #ffc107;
+}
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1rem;
+    }
+    .card {
+        padding: 20px;
+    }
+    .user-info .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .posts th, .posts td {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}

@@ -50,7 +50,15 @@ switch ($uri) {
         protectPage();
         require './view/posts/index.php';
         break;
+
+    case '/admin/usuarios':
+        protectPage();
+        $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
+        $_GET['page'] = $page;
+        require './view/posts/index.php';
+        break;
     
+
     case '/comentarios':
         protectPage();
         require './view/posts/comentarios.php';
@@ -73,8 +81,18 @@ switch ($uri) {
     
     case '/logout':
         logout();
-        break;  
-        
+        redirect('/home');
+        break;
+
+    case '/minha-conta':
+        protectPage();
+        require './view/auth/minha-conta.php';
+        break;
+
+    case '/post':
+        protectPage();
+        require './view/posts/post.php';
+        break;        
     // Página 404
     default:
         http_response_code(404);
