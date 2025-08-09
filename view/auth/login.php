@@ -35,6 +35,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <p style="color:red"><?= htmlspecialchars($erro) ?></p>
     <?php endif; ?>
 
+    <button type="button" class="btn-voltar" onclick="history.back()">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#007bff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+    Voltar
+    </button>
+
+
+
     <form action="/login" method="POST">
         <h1>Login</h1>
         <input type="email" name="email" required placeholder="E-mail" />
