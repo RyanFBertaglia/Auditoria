@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
     <?php endif; ?>
     
-    <form method="POST" action="/admin/responder" enctype="multipart/form-data" id="mainForm">
+    <form method="POST" action="/admin/responder?post_id=<?= $idPost ?>" enctype="multipart/form-data" id="mainForm">
 
         <label for="id" name="id">
             <h4>Post de número: <?php echo htmlspecialchars($idPost)?></h4>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         
         <button type="submit" class="submit-button" id="submitBtn">Enviar Post</button>
-        <button class="submit-button" style="background-color:#e62e2e;" onclick="history.back()">Voltar</button>
+        <button class="submit-button" style="background-color:#af5244;" onclick="history.back()">Voltar</button>
     </form>
   </div>
   

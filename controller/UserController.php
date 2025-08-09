@@ -35,4 +35,8 @@ class UserController {
         }
     }
 
+    function getUser($email) {
+        return $this->users->findByEmail($email);
+    }
+
 }

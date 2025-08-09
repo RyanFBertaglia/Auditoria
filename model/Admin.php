@@ -47,46 +47,68 @@ class Admin implements Authenticator {
         $statement->bindParam(':resolucao', $resposta['resolucao']);
         $statement->bindParam(':imagens', $resposta['imagens']);
         $statement->execute();
-        return $statement->rowCount() > 0;
+        if(!$statement->rowCount() > 0) {
+            throw new Exception("Erro ao salvar resposta ao user");
+        }
+        return $this->marcarResolvido($resposta['id']);
     }
 
-public function salvarFoto(array $arquivos): array {
-    $uploadDir = './uploads/';
-
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0755, true);
+    function marcarResolvido($id) {
+        $statement = $this->pdo->prepare("UPDATE postagens SET resolvido = 1 WHERE idPost = :id");
+        $statement->bindParam(':id', $id);
+        $statement->execute();
+        if(!$statement->rowCount() > 0) {
+            throw new Exception("Erro ao marcar como resolvido ao user");
+        }
+        return $statement->rowCount() > 0; 
     }
 
-    $imagens = [];
 
-    if (!empty($arquivos['imagens']) && is_array($arquivos['imagens']['tmp_name'])) {
-        $total = count($arquivos['imagens']['tmp_name']);
-        $total = min($total, 4);
+    public function salvarFoto(array $arquivos): array {
+        $uploadDir = './uploads/';
 
-        for ($i = 0; $i < $total; $i++) {
-            if ($arquivos['imagens']['error'][$i] === UPLOAD_ERR_OK) {
-                $tmp = $arquivos['imagens']['tmp_name'][$i];
-                $name = basename($arquivos['imagens']['name'][$i]);
-                $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-                $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
 
-                if (!in_array($ext, $permitidos)) {
-                    throw new Exception("Tipo de imagem não permitido: $ext");
-                }
+        $imagens = [];
 
-                $novoNome = uniqid('img_') . "." . $ext;
-                $destino = $uploadDir . $novoNome;
+        if (!empty($arquivos['imagens']) && is_array($arquivos['imagens']['tmp_name'])) {
+            $total = count($arquivos['imagens']['tmp_name']);
+            $total = min($total, 4);
 
-                if (move_uploaded_file($tmp, $destino)) {
-                    $imagens[] = './uploads/' . $novoNome;
-                } else {
-                    throw new Exception("Falha ao mover o arquivo $name.");
+            for ($i = 0; $i < $total; $i++) {
+                if ($arquivos['imagens']['error'][$i] === UPLOAD_ERR_OK) {
+                    $tmp = $arquivos['imagens']['tmp_name'][$i];
+                    $name = basename($arquivos['imagens']['name'][$i]);
+                    $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+                    $permitidos = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+                    if (!in_array($ext, $permitidos)) {
+                        throw new Exception("Tipo de imagem não permitido: $ext");
+                    }
+
+                    $novoNome = uniqid('img_') . "." . $ext;
+                    $destino = $uploadDir . $novoNome;
+
+                    if (move_uploaded_file($tmp, $destino)) {
+                        $imagens[] = './uploads/' . $novoNome;
+                    } else {
+                        throw new Exception("Falha ao mover o arquivo $name.");
+                    }
                 }
             }
         }
+
+        return $imagens;
     }
 
-    return $imagens;
-}
+    function findByEmail($email) {
+        return null;
+    }
+
+    function findPostByEmail($email) {
+        return null;
+    }
 
 }

@@ -16,8 +16,15 @@ $postsModel = new Posts($pdo);
 $controller = new PostController($postsModel);
 $comentarioModel = new Comentario($pdo);
 
+$currentPage = $_GET['page'] ?? 1;
+$limite = 10;
+$offset = ($currentPage - 1) * $limite;
+
+$totalPosts = $controller->getTotalPosts();
+$totalPages = ceil($totalPosts / $limite);
+
 try {
-    $posts = $controller->getAll();
+    $posts = $controller->getAll($limite, $offset);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -26,6 +33,75 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Posts Cadastrados</title>
     <link rel="stylesheet" href="/view/static/style/posts.css">
+    <style>
+        .nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            padding: 15px 0;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            background-color: #f9fafb;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #4a6fa5;
+            padding: 8px 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .nav a:hover {
+            background-color: #3a5a80;
+            transform: translateY(-2px);
+        }
+
+        .nav span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .resposta {
+            background: #daa21b;
+        }
+
+        .post-resolvido {
+            border: 2px solid var(--secondary);
+        }
+
+        .post-nao-resolvido {
+            border: 2px solid var(--primary);
+        }
+
+        .post-resolvido::before {
+            background: linear-gradient(135deg, var(--secondary), var(--secondary-hover));
+        }
+
+        .post-nao-resolvido::before {
+            background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+        }
+
+        @media (max-width: 600px) {
+            .nav {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .nav a {
+                padding: 6px 12px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -42,8 +118,7 @@ try {
         <?php foreach ($posts as $post): 
             $totalComentarios = $comentarioModel->contarComentarios($post['idPost']);
         ?>
-            <div class="post">
-                <div class="post-header">
+            <div class="post <?= $post['resolvido'] == 1 ? 'post-resolvido' : 'post-nao-resolvido' ?>">                <div class="post-header">
                     Publicado por: <?= htmlspecialchars($post['email'] ?? 'Usuário não informado') ?>
                 </div>
 
@@ -134,6 +209,12 @@ try {
                     <button class="btn" onclick="window.location.href='/admin/responder?post_id=<?= $post['idPost'] ?>'">
                         Responder
                     </button>
+                    <?php if ($post['resolvido'] == 1): ?>
+                        <button class="btn resposta" onclick="window.location.href='/admin/responder?post_id=<?= $post['idPost'] ?>'">
+                            Resposta da Administração
+                        </button>
+                    <?php endif; ?>
+                    
                 </div>
                 
                 <?php if (!empty($post['data_postagem'])): 
@@ -146,9 +227,22 @@ try {
             </div>
         <?php endforeach; ?>
     <?php endif; ?>
+    <nav class="nav">
+        <?php if ($currentPage > 1): ?>
+            <a href="?page=<?= $currentPage - 1 ?>">Anterior</a>
+        <?php endif; ?>
+
+        <span>Página <?= $currentPage ?> de <?= $totalPages ?></span>
+
+        <?php if ($currentPage < $totalPages): ?>
+            <a href="?page=<?= $currentPage + 1 ?>">Próxima</a>
+        <?php endif; ?>
+    </nav>
 </div>
 
 <script src="/view/static/js/galeria.js"></script>
+
+
 
 <script>
 function confirmarAcao(acao, postId) {

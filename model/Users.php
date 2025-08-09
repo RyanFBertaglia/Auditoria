@@ -45,6 +45,7 @@ class Users implements Authenticator {
     function saveSession($email) {
             $user = $this->findByEmail($email);
             $_SESSION['logado'] = true;
+            $_SESSION['user_id'] = $user['id'];
             $_SESSION['email'] = $user['email'];
             header("Location: /home");
     }

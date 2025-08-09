@@ -93,8 +93,8 @@ switch ($uri) {
         protectPage();
         require './view/posts/post.php';
         break;        
-    // Página 404
-    default:
+
+        default:
         http_response_code(404);
         echo "<!DOCTYPE html>
         <html>
