@@ -22,7 +22,7 @@ class Posts {
         $stmt = $this->pdo->prepare("SELECT * FROM postagens WHERE email = :user");
         $stmt->bindParam(':user', $user);
         $stmt->execute();
-        return $stmt->fetch();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);;
     }
 
     public function create(array $data) {
@@ -40,9 +40,26 @@ class Posts {
     }
     
 
-    public function getAll() {
-        $stmt = $this->pdo->query("SELECT * FROM postagens ORDER BY data_postagem DESC");
+    public function getAll($limit, $offset) {
+        $stmt = $this->pdo->prepare("
+            SELECT * FROM postagens ORDER BY data_postagem DESC
+            LIMIT ? OFFSET ?
+        ");
+
+        $stmt->bindValue(1, $limit, PDO::PARAM_INT);
+        $stmt->bindValue(2, $offset, PDO::PARAM_INT);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getRespostaById($id) {
+        return $this->pdo->query("SELECT * FROM resposta WHERE id = $id")->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getTotalPosts() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) as total FROM postagens");
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $result['total'] ?? 0;
     }
 
     public function findAllNotResolved() {

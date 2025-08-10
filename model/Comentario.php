@@ -38,9 +38,5 @@ class Comentario {
         $result = $stmt->fetch(\PDO::FETCH_ASSOC);
         return $result['total'];
     }
-
-    public function deletarComentario() {
-        
-    }
     
 }

@@ -19,8 +19,20 @@ class PostController {
         return $this->posts->findByUser($email);
     }
 
-    public function getAll() {
-        return $this->posts->getAll();
+    public function getAdminResponse($id) {
+        return $this->posts->getRespostaById($id);
+    }
+
+    public function findById($idPost) {
+        return $this->posts->findById($idPost);
+    }
+
+    public function getTotalPosts() {
+        return $this->posts->getTotalPosts();
+    }
+
+    public function getAll($limit, $offset) {
+        return $this->posts->getAll($limit, $offset);
     }
 
     public function findAllNotResolved() {
