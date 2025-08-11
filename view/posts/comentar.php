@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <div class="botoes">
                     <button type="submit" class="btn btn-enviar">Enviar</button>
-                    <a href="comentarios?post_id=<?php echo $idPost; ?>" class="btn btn-cancelar">Cancelar</a>
+                    <a href="#" onclick="history.back(); return false;" class="btn btn-cancelar">Cancelar</a>
                 </div>
             </form>
         </div>

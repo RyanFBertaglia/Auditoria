@@ -47,7 +47,6 @@ switch ($uri) {
         break;
 
     case '/posts':
-        protectPage();
         require './view/posts/index.php';
         break;
 

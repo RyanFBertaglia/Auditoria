@@ -15,12 +15,12 @@ use backend\Models\Comentario;
 
 
 
-if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
+if (!isset($_GET['post_id']) || !is_numeric($_GET['post_id'])) {
     $_SESSION['erro'] = "Post inválido.";
     header("Location: /minha-conta");
     exit;
 }
-$postId = $_GET['id'];
+$postId = $_GET['post_id'];
 
 
 $postsModel = new Posts($pdo);

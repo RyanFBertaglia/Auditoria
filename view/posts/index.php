@@ -206,11 +206,11 @@ try {
                     <button class="btn" onclick="window.location.href='/comentarios?post_id=<?= $post['idPost'] ?>'">
                         Ver comentários<?php if($totalComentarios > 0): ?> (<?= $totalComentarios ?>)<?php endif; ?>
                     </button>
-                    <button class="btn" onclick="window.location.href='/admin/responder?post_id=<?= $post['idPost'] ?>'">
+                    <button class="btn" onclick="window.location.href='/comentarios?post_id=<?= $post['idPost'] ?>'">
                         Responder
                     </button>
                     <?php if ($post['resolvido'] == 1): ?>
-                        <button class="btn resposta" onclick="window.location.href='/admin/responder?post_id=<?= $post['idPost'] ?>'">
+                        <button class="btn resposta" onclick="window.location.href='/post?post_id=<?= $post['idPost'] ?>'">
                             Resposta da Administração
                         </button>
                     <?php endif; ?>
