@@ -32,7 +32,7 @@ try {
 
     if (!$post) {
         $_SESSION['erro'] = "Post não encontrado.";
-        header("Location: /minha-conta");
+        header("Location: /erro");
         exit;
     }
 
@@ -58,6 +58,16 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualizar Post</title>
+    <style>
+        .voltar {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+
+    </style>
     <link rel="stylesheet" href="/view/static/style/posts.css">
 </head>
 <body>
@@ -163,9 +173,14 @@ if (!empty($resposta['imagens'])) {
                 Resolvido em: <?= date('d/m/Y H:i:s', strtotime($resposta['data_postagem'])) ?>
             </div>
         <?php endif; ?>
+        
     </div>
 <?php endif; ?>
         <?php endif; ?>
+        <div>
+            <a href="#" onclick="history.back(); return false;" class="btn btn-cancelar voltar">Voltar</a>
+        </div>
+
     </div>
 </div>
 

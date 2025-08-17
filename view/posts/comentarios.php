@@ -56,8 +56,7 @@ $totalComentarios = $comentarioModel->contarComentarios($idPost);
             <a href="comentar?post_id=<?php echo $idPost; ?>" class="btn btn-comentar">
                 Comentar
             </a>
-            <a href="#" onclick="history.back(); return false;" class="btn btn-cancelar">Cancelar</a>
-
+            <a href="#" onclick="history.back(); return false;" class="btn btn-cancelar">Voltar</a>
 
         </div>
     </div>

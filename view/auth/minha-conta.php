@@ -90,7 +90,7 @@ $userPosts = $posts->getUserPosts($email);
                                 </span>
                             </td>
                             <td>
-                                <a href="/post?id=<?= $post['idPost'] ?>">Ver</a>
+                                <a href="/post?post_id=<?= $post['idPost'] ?>">Ver</a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

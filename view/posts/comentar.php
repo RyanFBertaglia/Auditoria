@@ -82,13 +82,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 
                 <div class="botoes">
                     <button type="submit" class="btn btn-enviar">Enviar</button>
-                    <a href="#" onclick="history.back(); return false;" class="btn btn-cancelar">Cancelar</a>
+                    <a href="#" onclick="voltar()" class="btn btn-cancelar">Voltar</a>
                 </div>
             </form>
         </div>
     </div>
 
     <script>
+
+
+        function voltar() {
+            if(<?php echo $mensagem !== ""? 'true': 'false' ?>) {
+                history.go(-2)
+            } else {
+                history.back();
+            }
+        }
+
         const textarea = document.getElementById('comentario');
         const contador = document.getElementById('contadorTexto');
         
