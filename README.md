@@ -53,14 +53,17 @@ CREATE DATABASE dados;
 ## Design:
 ### Página inical:
 ![alt text](./view/static/img/home.png)
-### Ver Posts:
-![alt text](./view/static/img/posts.png)
+### Posts:
+![alt text](./view/static/img/posts.gif)
 ### Criar Posts:
 ![alt text](./view/static/img/create.png)
-### Comentarios:
-![alt text](./view/static/img/comentarios.png)
-### Comentar:
-![alt text](./view/static/img/comentar.png)
+### Comentarios / Comentar:
+![alt text](./view/static/img/comment.png)
+### Acompanhar seus Posts:
+![alt text](./view/static/img/minha-conta.gif)
+### Resolver os problemas:
+![alt text](./view/static/img/admin.gif)
+
 
 ## 🏗️ Arquitetura MVC
 
