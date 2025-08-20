@@ -52,18 +52,22 @@ CREATE DATABASE dados;
 
 ## Design:
 ### Página inical:
-![alt text](./view/static/img/home.png)
-### Posts:
-![alt text](./view/static/img/posts.gif)
-### Criar Posts:
-![alt text](./view/static/img/create.png)
-### Comentarios / Comentar:
-![alt text](./view/static/img/comment.png)
-### Acompanhar seus Posts:
-![alt text](./view/static/img/minha-conta.gif)
-### Resolver os problemas:
-![alt text](./view/static/img/admin.gif)
+<img src="./view/static/img/home.png" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Página inicial da aplicação">
 
+### Posts:
+<img src="./view/static/img/posts.gif" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Demonstração dos posts">
+
+### Criar Posts:
+<img src="./view/static/img/create.png" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Página de criação de posts">
+
+### Comentarios / Comentar:
+<img src="./view/static/img/comment.png" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Página de comentários">
+
+### Acompanhar seus Posts:
+<img src="./view/static/img/minha-conta.gif" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Acompanhamento de posts do usuário">
+
+### Resolver os problemas:
+<img src="./view/static/img/admin.gif" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Painel administrativo">
 
 ## 🏗️ Arquitetura MVC
 
