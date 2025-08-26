@@ -16,101 +16,150 @@
       "get": {
         "summary": "Página inicial",
         "tags": ["Páginas Públicas"],
-        "responses": {
-          "200": {
-            "description": "Página home carregada com sucesso"
-          }
-        }
+        "responses": { "200": { "description": "Página home carregada com sucesso" } }
       }
     },
     "/home": {
       "get": {
         "summary": "Página inicial",
         "tags": ["Páginas Públicas"],
-        "responses": {
-          "200": {
-            "description": "Página home carregada com sucesso"
-          }
-        }
-      }
-    },
-    "/login": {
-      "get": {
-        "summary": "Página de login de usuário",
-        "tags": ["Autenticação"],
-        "responses": {
-          "200": {
-            "description": "Formulário de login carregado"
-          },
-          "302": {
-            "description": "Redirecionamento se já estiver logado"
-          }
-        }
-      }
-    },
-    "/login-admin": {
-      "get": {
-        "summary": "Página de login administrativo",
-        "tags": ["Autenticação"],
-        "responses": {
-          "200": {
-            "description": "Formulário de login admin carregado"
-          }
-        }
-      }
-    },
-    "/register": {
-      "get": {
-        "summary": "Página de registro de usuário",
-        "tags": ["Autenticação"],
-        "responses": {
-          "200": {
-            "description": "Formulário de registro carregado"
-          },
-          "302": {
-            "description": "Redirecionamento se já estiver logado"
-          }
-        }
+        "responses": { "200": { "description": "Página home carregada com sucesso" } }
       }
     },
     "/erro": {
       "get": {
         "summary": "Página de erro no cadastro",
         "tags": ["Páginas Públicas"],
-        "responses": {
-          "200": {
-            "description": "Página de erro carregada"
-          }
-        }
-      }
-    },
-    "/reclamar": {
-      "get": {
-        "summary": "Criar nova reclamação",
-        "tags": ["Posts"],
-        "security": [
-          {
-            "sessionAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Formulário de reclamação carregado"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
-        }
+        "responses": { "200": { "description": "Página de erro carregada" } }
       }
     },
     "/sucesso": {
       "get": {
         "summary": "Página de sucesso",
         "tags": ["Páginas Públicas"],
-        "responses": {
-          "200": {
-            "description": "Página de sucesso carregada"
+        "responses": { "200": { "description": "Página de sucesso carregada" } }
+      }
+    },
+    "/login": {
+      "get": {
+        "summary": "Formulário de login de usuário",
+        "tags": ["Autenticação"],
+        "responses": { "200": { "description": "Formulário carregado" } }
+      },
+      "post": {
+        "summary": "Login de usuário",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "senha"],
+                "properties": {
+                  "email": { "type": "string", "example": "usuario@gmail.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                }
+              }
+            }
           }
+        },
+        "responses": {
+          "200": { "description": "Login bem-sucedido" },
+          "401": { "description": "Credenciais inválidas" }
+        }
+      }
+    },
+    "/login-admin": {
+      "post": {
+        "summary": "Login administrativo",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email", "senha"],
+                "properties": {
+                  "email": { "type": "string", "example": "admin@gmail.com" },
+                  "senha": { "type": "string", "example": "admin123" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login admin bem-sucedido" },
+          "401": { "description": "Credenciais inválidas" }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "summary": "Registrar usuário",
+        "tags": ["Autenticação"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["nome", "email", "senha"],
+                "properties": {
+                  "nome": { "type": "string", "example": "Ryan" },
+                  "email": { "type": "string", "example": "ryan@gmail.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Registro bem-sucedido" },
+          "400": { "description": "Erro no registro" }
+        }
+      }
+    },
+    "/logout": {
+      "delete": {
+        "summary": "Logout do sistema",
+        "tags": ["Autenticação"],
+        "responses": { "302": { "description": "Sessão encerrada e redirecionamento para home" } }
+      }
+    },
+    "/minha-conta": {
+      "get": {
+        "summary": "Gerenciar conta do usuário",
+        "tags": ["Usuário"],
+        "security": [{ "sessionAuth": [] }],
+        "responses": {
+          "200": { "description": "Página de gerenciamento de conta" },
+          "302": { "description": "Redirecionamento para login se não autenticado" }
+        }
+      },
+      "post": {
+        "summary": "Atualizar dados do usuário",
+        "tags": ["Usuário"],
+        "security": [{ "sessionAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string", "example": "Ryan" },
+                  "email": { "type": "string", "example": "ryan@gmail.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Dados atualizados com sucesso" },
+          "400": { "description": "Erro na atualização" }
         }
       }
     },
@@ -119,98 +168,144 @@
         "summary": "Listar posts",
         "tags": ["Posts"],
         "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Número da página para paginação",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 1
+          { "name": "page", "in": "query", "required": false, "schema": { "type": "integer", "default": 1 } }
+        ],
+        "security": [{ "sessionAuth": [] }],
+        "responses": { "200": { "description": "Lista de posts carregada" }, "302": { "description": "Redirecionamento para login" } }
+      },
+      "post": {
+        "summary": "Criar novo post",
+        "tags": ["Posts"],
+        "security": [{ "sessionAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["titulo","descricao"],
+                "properties": {
+                  "titulo": { "type": "string", "example": "Problema no bairro" },
+                  "descricao": { "type": "string", "example": "Rua sem iluminação" }
+                }
+              }
             }
           }
-        ],
-        "security": [
-          {
-            "sessionAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Lista de posts carregada"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
-        }
+        },
+        "responses": { "200": { "description": "Post criado com sucesso" }, "400": { "description": "Erro ao criar post" } }
       }
     },
-    "/admin/usuarios": {
+    "/post": {
       "get": {
-        "summary": "Gerenciar usuários (Admin)",
-        "tags": ["Administração"],
+        "summary": "Visualizar post específico",
+        "tags": ["Posts"],
+        "security": [{ "sessionAuth": [] }],
         "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "Número da página para paginação",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "default": 1
+          { "name": "post_id", "in": "query", "required": true, "schema": { "type": "integer", "example": 1 } }
+        ],
+        "responses": { "200": { "description": "Página do post carregada" }, "302": { "description": "Redirecionamento para login" } }
+      }
+    },
+    "/reclamar": {
+      "get": {
+        "summary": "Formulário de reclamação",
+        "tags": ["Posts"],
+        "security": [{ "sessionAuth": [] }],
+        "responses": { "200": { "description": "Formulário carregado" }, "302": { "description": "Redirecionamento para login" } }
+      },
+      "post": {
+        "summary": "Enviar nova reclamação",
+        "tags": ["Posts"],
+        "security": [{ "sessionAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["descricao", "titulo", "imagens"],
+                "properties": {
+                  "descricao": { "type": "string", "example": "Problema no bairro" },
+                  "imagens": {"type": "json", "example": ["./uploads/img23343", "./uploads/img49541"]}
+                }
+              }
             }
           }
-        ],
-        "security": [
-          {
-            "adminAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Painel de administração de usuários"
-          },
-          "302": {
-            "description": "Redirecionamento se não for admin"
-          }
-        }
+        },
+        "responses": { "200": { "description": "Reclamação enviada" }, "400": { "description": "Erro ao enviar" } }
       }
     },
     "/comentarios": {
       "get": {
         "summary": "Visualizar comentários",
         "tags": ["Comentários"],
-        "security": [
-          {
-            "sessionAuth": []
-          }
+        "security": [{ "sessionAuth": [] }],
+        "parameters": [
+          { "name": "post_id", "in": "query", "required": true, "schema": { "type": "integer", "example": 1 } }
         ],
-        "responses": {
-          "200": {
-            "description": "Página de comentários carregada"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
-        }
+        "responses": { "200": { "description": "Comentários carregados" }, "302": { "description": "Redirecionamento para login" } }
       }
     },
     "/comentar": {
       "get": {
-        "summary": "Adicionar comentário",
+        "summary": "Formulário de comentário",
         "tags": ["Comentários"],
-        "security": [
-          {
-            "sessionAuth": []
+        "security": [{ "sessionAuth": [] }],
+        "responses": { "200": { "description": "Formulário carregado" }, "302": { "description": "Redirecionamento para login" } }
+      },
+      "post": {
+        "summary": "Enviar comentário",
+        "tags": ["Comentários"],
+        "security": [{ "sessionAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["idComentario", "idPost", "email", "comentario"],
+                "properties": {
+                  "idPost": { "type": "integer", "example": 1 },
+                  "comentario": { "type": "string", "example": "Ótimo serviço!" },
+                  "email": { "type": "string", "example": "ryan@gmail.com" }
+                }
+              }
+            }
           }
-        ],
+        },
+        "responses": { "200": { "description": "Comentário enviado" }, "400": { "description": "Erro ao enviar" } }
+      }
+    },
+    "/admin/usuarios": {
+      "get": {
+        "summary": "Listar usuários (Admin)",
+        "tags": ["Administração"],
+        "security": [{ "adminAuth": [] }],
+        "parameters": [{ "name": "page", "in": "query", "required": false, "schema": { "type": "integer", "default": 1 } }],
+        "responses": { "200": { "description": "Lista de usuários" }, "302": { "description": "Redirecionamento se não for admin" } }
+      },
+      "put": {
+        "summary": "Atualizar usuário (Admin)",
+        "tags": ["Administração"],
+        "security": [{ "adminAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": { "type": "string", "example": "Novo Usuário" },
+                  "email": { "type": "string", "example": "novo@gmail.com" },
+                  "senha": { "type": "string", "example": "123456" }
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "200": {
-            "description": "Formulário de comentário carregado"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
+          "200": { "description": "Usuário criado/atualizado com sucesso" },
+          "400": { "description": "Erro ao criar/atualizar usuário" }
         }
       }
     },
@@ -218,86 +313,72 @@
       "get": {
         "summary": "Gerenciar posts (Admin)",
         "tags": ["Administração"],
-        "security": [
-          {
-            "adminAuth": []
-          }
-        ],
+        "security": [{ "adminAuth": [] }],
         "responses": {
-          "200": {
-            "description": "Painel de administração de posts"
-          },
-          "302": {
-            "description": "Redirecionamento se não for admin"
+          "200": { "description": "Painel de administração de posts" },
+          "302": { "description": "Redirecionamento se não for admin" }
+        }
+      },
+      "post": {
+        "summary": "Criar/Atualizar post (Admin)",
+        "tags": ["Administração"],
+        "security": [{ "adminAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["titulo", "descricao"],
+                "properties": {
+                  "titulo": { "type": "string", "example": "Título do Post" },
+                  "descricao": { "type": "string", "example": "Descrição do post" },
+                  "id": { "type": "integer", "example": 1 }
+                }
+              }
+            }
           }
+        },
+        "responses": {
+          "200": { "description": "Post criado/atualizado com sucesso" },
+          "400": { "description": "Erro ao criar/atualizar post" }
         }
       }
     },
     "/admin/responder": {
       "get": {
-        "summary": "Responder a posts (Admin)",
+        "summary": "Formulário de resposta (Admin)",
         "tags": ["Administração"],
-        "security": [
-          {
-            "adminAuth": []
-          }
-        ],
+        "security": [{ "adminAuth": [] }],
         "responses": {
-          "200": {
-            "description": "Formulário de resposta carregado"
-          },
-          "302": {
-            "description": "Redirecionamento se não for admin"
-          }
+          "200": { "description": "Formulário de resposta carregado" },
+          "302": { "description": "Redirecionamento se não for admin" }
         }
-      }
-    },
-    "/logout": {
-      "get": {
-        "summary": "Logout do sistema",
-        "tags": ["Autenticação"],
+      },
+      "post": {
+        "summary": "Enviar resposta a post (Admin)",
+        "tags": ["Administração"],
+        "security": [{ "adminAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["id", "resolucao", "imagens", "data_postagem"],
+                "properties": {
+                  "id": { "type": "integer", "example": 1 },
+                  "resolucao": { "type": "string", "example": "Problema resolvido" },
+                  "imagens": {"type": "json", "example":["./uploads/img23343", "./uploads/img49541"]},
+                  "data_postagem": {"type": "date", "example":"2024-01-01 12:00:00"}
+                }
+              }
+            }
+          }
+        },
         "responses": {
-          "302": {
-            "description": "Sessão encerrada e redirecionamento para home"
-          }
-        }
-      }
-    },
-    "/minha-conta": {
-      "get": {
-        "summary": "Gerenciar conta do usuário",
-        "tags": ["Usuário"],
-        "security": [
-          {
-            "sessionAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Página de gerenciamento de conta"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
-        }
-      }
-    },
-    "/post": {
-      "get": {
-        "summary": "Visualizar post específico",
-        "tags": ["Posts"],
-        "security": [
-          {
-            "sessionAuth": []
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Página do post carregada"
-          },
-          "302": {
-            "description": "Redirecionamento para login se não autenticado"
-          }
+          "200": { "description": "Resposta enviada com sucesso" },
+          "400": { "description": "Erro ao enviar resposta" }
         }
       }
     }

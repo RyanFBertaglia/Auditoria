@@ -54,7 +54,7 @@ switch ($uri) {
         protectPage();
         $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int) $_GET['page'] : 1;
         $_GET['page'] = $page;
-        require './view/posts/index.php';
+        require './view/admin/index.php';
         break;
     
 
