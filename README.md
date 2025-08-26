@@ -30,6 +30,7 @@ Este projeto é uma aplicação web que permite aos usuários realizar auditoria
 ### Pré-requisitos
 - XAMPP instalado com PHP + MYSQL
 - Git
+- Composer
 
 ### Passo a Passo
 
@@ -49,6 +50,20 @@ http://localhost/phpmyadmin/index.php?route=/server/sql
 CREATE DATABASE dados;
 ```
 5. Importe e rode os arquivos SQL da pasta migrations para criar cada tabela
+
+6. Carregue os namespaces das classes, no terminal rode:
+```bash
+composer install
+```
+```bash
+composer dump-autoload
+```
+
+7. Biblioteca de documentação:
+```bash
+composer require zircote/swagger-php
+composer require doctrine/annotations
+```
 
 ## Design:
 ### Página inical:

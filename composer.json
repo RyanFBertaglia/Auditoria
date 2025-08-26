@@ -1,5 +1,14 @@
 {
+    "autoload": {
+        "psr-4": {
+            "backend\\Controller\\": "controller/",
+            "backend\\Models\\": "model/"
+        }
+    },
+
     "require": {
-        "firebase/php-jwt": "^6.11"
+        "firebase/php-jwt": "^6.11",
+        "zircote/swagger-php": "^5.3",
+        "doctrine/annotations": "^2.0"
     }
 }

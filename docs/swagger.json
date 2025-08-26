@@ -1,0 +1,329 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Sistema de Reclamações",
+    "version": "1.0.0",
+    "description": "API para gerenciamento de reclamações e posts"
+  },
+  "servers": [
+    {
+      "url": "http://localhost",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Página inicial",
+        "tags": ["Páginas Públicas"],
+        "responses": {
+          "200": {
+            "description": "Página home carregada com sucesso"
+          }
+        }
+      }
+    },
+    "/home": {
+      "get": {
+        "summary": "Página inicial",
+        "tags": ["Páginas Públicas"],
+        "responses": {
+          "200": {
+            "description": "Página home carregada com sucesso"
+          }
+        }
+      }
+    },
+    "/login": {
+      "get": {
+        "summary": "Página de login de usuário",
+        "tags": ["Autenticação"],
+        "responses": {
+          "200": {
+            "description": "Formulário de login carregado"
+          },
+          "302": {
+            "description": "Redirecionamento se já estiver logado"
+          }
+        }
+      }
+    },
+    "/login-admin": {
+      "get": {
+        "summary": "Página de login administrativo",
+        "tags": ["Autenticação"],
+        "responses": {
+          "200": {
+            "description": "Formulário de login admin carregado"
+          }
+        }
+      }
+    },
+    "/register": {
+      "get": {
+        "summary": "Página de registro de usuário",
+        "tags": ["Autenticação"],
+        "responses": {
+          "200": {
+            "description": "Formulário de registro carregado"
+          },
+          "302": {
+            "description": "Redirecionamento se já estiver logado"
+          }
+        }
+      }
+    },
+    "/erro": {
+      "get": {
+        "summary": "Página de erro no cadastro",
+        "tags": ["Páginas Públicas"],
+        "responses": {
+          "200": {
+            "description": "Página de erro carregada"
+          }
+        }
+      }
+    },
+    "/reclamar": {
+      "get": {
+        "summary": "Criar nova reclamação",
+        "tags": ["Posts"],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Formulário de reclamação carregado"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    },
+    "/sucesso": {
+      "get": {
+        "summary": "Página de sucesso",
+        "tags": ["Páginas Públicas"],
+        "responses": {
+          "200": {
+            "description": "Página de sucesso carregada"
+          }
+        }
+      }
+    },
+    "/posts": {
+      "get": {
+        "summary": "Listar posts",
+        "tags": ["Posts"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página para paginação",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de posts carregada"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    },
+    "/admin/usuarios": {
+      "get": {
+        "summary": "Gerenciar usuários (Admin)",
+        "tags": ["Administração"],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página para paginação",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 1
+            }
+          }
+        ],
+        "security": [
+          {
+            "adminAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Painel de administração de usuários"
+          },
+          "302": {
+            "description": "Redirecionamento se não for admin"
+          }
+        }
+      }
+    },
+    "/comentarios": {
+      "get": {
+        "summary": "Visualizar comentários",
+        "tags": ["Comentários"],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de comentários carregada"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    },
+    "/comentar": {
+      "get": {
+        "summary": "Adicionar comentário",
+        "tags": ["Comentários"],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Formulário de comentário carregado"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    },
+    "/admin/posts": {
+      "get": {
+        "summary": "Gerenciar posts (Admin)",
+        "tags": ["Administração"],
+        "security": [
+          {
+            "adminAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Painel de administração de posts"
+          },
+          "302": {
+            "description": "Redirecionamento se não for admin"
+          }
+        }
+      }
+    },
+    "/admin/responder": {
+      "get": {
+        "summary": "Responder a posts (Admin)",
+        "tags": ["Administração"],
+        "security": [
+          {
+            "adminAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Formulário de resposta carregado"
+          },
+          "302": {
+            "description": "Redirecionamento se não for admin"
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "summary": "Logout do sistema",
+        "tags": ["Autenticação"],
+        "responses": {
+          "302": {
+            "description": "Sessão encerrada e redirecionamento para home"
+          }
+        }
+      }
+    },
+    "/minha-conta": {
+      "get": {
+        "summary": "Gerenciar conta do usuário",
+        "tags": ["Usuário"],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página de gerenciamento de conta"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    },
+    "/post": {
+      "get": {
+        "summary": "Visualizar post específico",
+        "tags": ["Posts"],
+        "security": [
+          {
+            "sessionAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Página do post carregada"
+          },
+          "302": {
+            "description": "Redirecionamento para login se não autenticado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "sessionAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "PHPSESSID",
+        "description": "Autenticação via sessão PHP"
+      },
+      "adminAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "PHPSESSID",
+        "description": "Autenticação administrativa via sessão PHP"
+      }
+    }
+  },
+  "tags": [
+    { "name": "Páginas Públicas", "description": "Rotas acessíveis sem login" },
+    { "name": "Autenticação", "description": "Login, logout e registro de usuários" },
+    { "name": "Posts", "description": "Criação e visualização de reclamações/posts" },
+    { "name": "Comentários", "description": "Adicionar e visualizar comentários" },
+    { "name": "Administração", "description": "Rotas restritas a administradores" },
+    { "name": "Usuário", "description": "Gerenciamento de perfil e conta" }
+  ]
+}
