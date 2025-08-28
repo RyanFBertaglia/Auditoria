@@ -84,6 +84,14 @@ composer require doctrine/annotations
 ### Resolver os problemas:
 <img src="./view/static/img/admin.gif" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Painel administrativo">
 
+### Swagger
+Caso queira mais informações sobre as rotas e requisições, após subir o projeto abra no seu navegador a página
+
+```bash
+localhost/docs
+```
+<img src="./view/static/img/swagger.png" width="700" style="border: 1px solid #ddd; border-radius: 5px;" alt="Documentação no Swagger">
+
 ## 🏗️ Arquitetura MVC
 
 |Model	  | Responsável pela conexão com o banco de dados e manipulação dos dados (CRUD)	 |
